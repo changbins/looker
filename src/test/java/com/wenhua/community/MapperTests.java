@@ -2,8 +2,10 @@ package com.wenhua.community;
 
 
 import com.wenhua.community.dao.DiscussPostMapper;
+import com.wenhua.community.dao.LoginTicketMapper;
 import com.wenhua.community.dao.UserMapper;
 import com.wenhua.community.entity.DiscussPost;
+import com.wenhua.community.entity.LoginTicket;
 import com.wenhua.community.entity.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,8 @@ public class MapperTests {
     @Autowired(required = false)
     private DiscussPostMapper discussPostMapper;
 
+    @Autowired(required = false)
+    private LoginTicketMapper loginTicketMapper;
 
     @Test
     public void testSelectUser() {
@@ -80,5 +84,22 @@ public class MapperTests {
         System.out.println(rows);
     }
 
+    @Test
+    public void testInsertTicket(){
+        LoginTicket LT1 = new LoginTicket();
+        LT1.setId(101);
+        LT1.setTicket("jiayi");
+        LT1.setStatus(1);
+        LT1.setExpired(new Date(System.currentTimeMillis() + 1000 * 60 *10));
+        loginTicketMapper.insertLoginTicket(LT1);
+    }
+    @Test
+    public void testSelectLoginTicket() {
+        LoginTicket loginTicket = loginTicketMapper.selectByTicket("jiayi");
+        System.out.println(loginTicket);
+        loginTicketMapper.updateStatus("jiayi", 0);
+        loginTicket = loginTicketMapper.selectByTicket("jiayi");
+        System.out.println(loginTicket);
+    }
 
 }
