@@ -180,17 +180,28 @@ public class UserService implements CommunityConstant {
         loginTicket.setExpired(new Date(System.currentTimeMillis() + expiredSecond * 1000));
         loginTicketMapper.insertLoginTicket(loginTicket);
 
-        map.put("ticket",loginTicket.getTicket());
+        map.put("ticket", loginTicket.getTicket());
         return map;
     }
 
     /**
      * 退出登录
+     *
      * @param ticket 传入登录凭证
      */
-    public void logout(String ticket){
-        loginTicketMapper.updateStatus(ticket,1);
+    public void logout(String ticket) {
+        loginTicketMapper.updateStatus(ticket, 1);
 
+    }
+
+    /**
+     * 根据登录的凭证查询用户的登录状态等
+     *
+     * @param ticket 登录凭证
+     * @return 用户登录的相关信息
+     */
+    public LoginTicket findLoginTicket(String ticket) {
+        return loginTicketMapper.selectByTicket(ticket);
     }
 
 }
