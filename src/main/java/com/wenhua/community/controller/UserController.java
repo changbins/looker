@@ -8,6 +8,7 @@ package com.wenhua.community.controller;
  * @Detail：
  * */
 
+import com.wenhua.community.annotation.LoginRequired;
 import com.wenhua.community.entity.User;
 import com.wenhua.community.service.UserService;
 import com.wenhua.community.util.CommunityUtil;
@@ -56,6 +57,7 @@ public class UserController {
      *
      * @return 返回到跳转页面
      */
+    @LoginRequired
     @RequestMapping(path = "/setting", method = RequestMethod.GET)
     public String setting() {
         return "/site/setting";
@@ -69,6 +71,7 @@ public class UserController {
      * @param model       模板数据存储
      * @return 返回到首页
      */
+    @LoginRequired
     @RequestMapping(path = "/upload", method = RequestMethod.POST)
     public String uploadHeader(MultipartFile headerImage, Model model) {
         //判断用户是否选择文件
@@ -129,6 +132,7 @@ public class UserController {
         } catch (IOException e) {
             LOGGER.error("读取头像失败" + e.getMessage());
         }
-        //TODO:这里还有一个bug没修复，头像上传后无法显示，debug后图片上传成功且数据库底层已修改为新头像
     }
+    //TODO:这里还有一个bug没修复，头像上传后无法显示，debug后图片上传成功且数据库底层已修改为新头像
+    //TODO:修改密码未实现
 }

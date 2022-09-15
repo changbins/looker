@@ -101,5 +101,15 @@ public class MapperTests {
         loginTicket = loginTicketMapper.selectByTicket("jiayi");
         System.out.println(loginTicket);
     }
+    @Test
+    public void testDiscussPostInsert(){
+        DiscussPost post = new DiscussPost();
+        post.setTitle("bug消失");
+        post.setContent("bug消失");
+        post.setCreateTime(new Date());
+
+        int i = discussPostMapper.insertDiscussPost(post);
+        System.out.println(i);
+    }
 
 }
