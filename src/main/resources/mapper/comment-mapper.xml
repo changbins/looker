@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wenhua.community.dao.CommentMapper">
+    <sql id="AllFields">
+        id,user_id,entity_type,entity_id,target_id,content,status,create_time
+    </sql>
+
+    <!--查询某一页的数据-->
+    <select id="selectCommentsByEntity" resultType="Comment">
+        select <include refid="AllFields"></include>
+        from comment
+        where status = 0
+        and entity_type = #{entityType}
+        and  entity_id = #{entityId}
+        order by create_time asc
+        limit #{offset} ,#{limit}
+    </select>
+
+    <!--查询一共有多少条数据-->
+    <select id="selectCountByEntity" resultType="int">
+        select count(id)
+        from comment
+        where status = 0
+        and entity_type = #{entityType}
+        and  entity_id = #{entityId}
+    </select>
+</mapper>

@@ -136,7 +136,7 @@ public class LoginController implements CommunityConstant {
             OutputStream outputStream = response.getOutputStream();
             ImageIO.write(image, "png", outputStream);
         } catch (IOException e) {
-            logger.error("相应验证码失败:", e.getMessage());
+            logger.error("刷新验证码失败:", e.getMessage());
         }
     }
 

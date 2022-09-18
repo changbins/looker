@@ -37,10 +37,11 @@ public class DiscussPostService {
 
     /**
      * 添加帖子的方法
+     *
      * @param post 帖子内容
      * @return
      */
-    public int addDiscussPost(DiscussPost post){
+    public int addDiscussPost(DiscussPost post) {
         if (post == null) {
             throw new IllegalArgumentException("参数内容不能为空！");
         }
@@ -51,5 +52,15 @@ public class DiscussPostService {
         post.setTitle(sensitiveFilter.filter(post.getTitle()));
         post.setContent(sensitiveFilter.filter(post.getContent()));
         return discussPostMapper.insertDiscussPost(post);
+    }
+
+    /**
+     * 查询帖子详情
+     *
+     * @param id 帖子的id
+     * @return 帖子详情实体对象
+     */
+    public DiscussPost findDiscussPostById(int id) {
+        return discussPostMapper.selectDiscussPostById(id);
     }
 }
