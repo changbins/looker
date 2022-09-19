@@ -99,6 +99,7 @@ public class LoginController implements CommunityConstant {
      * @return 返回到注册页面
      */
     // http://localhost:8080/community/activation/101/code
+    //FIXME:无法用邮件进行激活，邮件点击激活显示激活激活失败
     @RequestMapping(path = "/activation/{userId}/{code}", method = RequestMethod.GET)
     public String activation(Model model, @PathVariable("userId") int userId, @PathVariable("code") String code) {
         int result = userService.activation(userId, code);
@@ -126,7 +127,6 @@ public class LoginController implements CommunityConstant {
         //生成验证码
         String text = kaptchaProducer.createText();
         BufferedImage image = kaptchaProducer.createImage(text);
-
         //将验证码存入session
         session.setAttribute("kaptcha", text);
 

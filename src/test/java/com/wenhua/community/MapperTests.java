@@ -1,9 +1,11 @@
 package com.wenhua.community;
 
 
+import com.wenhua.community.dao.CommentMapper;
 import com.wenhua.community.dao.DiscussPostMapper;
 import com.wenhua.community.dao.LoginTicketMapper;
 import com.wenhua.community.dao.UserMapper;
+import com.wenhua.community.entity.Comment;
 import com.wenhua.community.entity.DiscussPost;
 import com.wenhua.community.entity.LoginTicket;
 import com.wenhua.community.entity.User;
@@ -34,6 +36,10 @@ public class MapperTests {
 
     @Autowired(required = false)
     private LoginTicketMapper loginTicketMapper;
+
+    @Autowired
+    private CommentMapper commentMapper;
+
 
     @Test
     public void testSelectUser() {
@@ -112,4 +118,18 @@ public class MapperTests {
         System.out.println(i);
     }
 
+
+    @Test
+    public void addComment(){
+        Comment comment = new Comment();
+        comment.setUserId(111);
+        comment.setEntityType(1);
+        comment.setEntityId(228);
+        comment.setTargetId(0);
+        comment.setStatus(0);
+        comment.setContent("这是一个测试数据");
+        comment.setCreateTime(new Date());
+        int insertComment = commentMapper.insertComment(comment);
+        System.out.println("成功插入记录"+insertComment);
+    }
 }
