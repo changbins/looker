@@ -31,4 +31,5 @@ public class testJson {
         map.put("age",25);
         System.out.println(CommunityUtil.getJsonString(0, "ok",map));
     }
+
 }
