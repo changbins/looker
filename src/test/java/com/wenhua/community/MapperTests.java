@@ -1,14 +1,8 @@
 package com.wenhua.community;
 
 
-import com.wenhua.community.dao.CommentMapper;
-import com.wenhua.community.dao.DiscussPostMapper;
-import com.wenhua.community.dao.LoginTicketMapper;
-import com.wenhua.community.dao.UserMapper;
-import com.wenhua.community.entity.Comment;
-import com.wenhua.community.entity.DiscussPost;
-import com.wenhua.community.entity.LoginTicket;
-import com.wenhua.community.entity.User;
+import com.wenhua.community.dao.*;
+import com.wenhua.community.entity.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -40,6 +34,8 @@ public class MapperTests {
     @Autowired
     private CommentMapper commentMapper;
 
+    @Autowired
+    private MessageMapper messageMapper;
 
     @Test
     public void testSelectUser() {
@@ -131,5 +127,27 @@ public class MapperTests {
         comment.setCreateTime(new Date());
         int insertComment = commentMapper.insertComment(comment);
         System.out.println("成功插入记录"+insertComment);
+    }
+
+    @Test
+    public void testMessageMapper(){
+        List<Message> messages = messageMapper.selectConversations(111, 0, 20);
+        for (Message message : messages) {
+            System.out.println(message);
+        }
+
+        int count = messageMapper.selectConversationCount(111);
+        System.out.println(count);
+
+        List<Message> letters = messageMapper.selectLetters("111_112", 0, 10);
+        for (Message letter : letters) {
+            System.out.println(letter);
+        }
+
+        int lettersCount = messageMapper.selectLettersCount("111_112");
+        System.out.println(lettersCount);
+
+        int unreadCount = messageMapper.selectLetterUnreadCount(131,"111_131");
+        System.out.println(unreadCount);
     }
 }
