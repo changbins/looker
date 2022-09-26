@@ -43,7 +43,6 @@ public class MessageController {
      */
     @RequestMapping(path = "/letter/list", method = RequestMethod.GET)
     public String getLetterList(Model model, Page page) {
-
         User user = hostHolder.getUser();
 
         //分页信息
@@ -123,9 +122,9 @@ public class MessageController {
         int id1 = Integer.parseInt(ids[1]);
 
         if (hostHolder.getUser().getId() == id0) {
-            return userService.findUserById(id0);
-        } else {
             return userService.findUserById(id1);
+        } else {
+            return userService.findUserById(id0);
         }
     }
 
